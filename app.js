@@ -5,7 +5,7 @@ const mongoose = require('mongoose');
 const helmet = require('helmet');
 const { errors } = require('celebrate');
 const cookieParser = require('cookie-parser');
-const { cardsRouter } = require('./routes/articles');
+const { articlesRouter } = require('./routes/articles');
 const userRouter = require('./routes/users');
 const { login, createUser } = require('./controllers/users');
 const auth = require('./middlewares/auth');
@@ -32,11 +32,11 @@ app.use(bodyParser.urlencoded({ extended: false }));
 
 app.use(requestLogger);
 
-app.get('/crash-test', () => {
-  setTimeout(() => {
-    throw new Error('Сервер сейчас упадёт');
-  }, 0);
-});
+// app.get('/crash-test', () => {
+//   setTimeout(() => {
+//     throw new Error('Сервер сейчас упадёт');
+//   }, 0);
+// });
 
 app.post('/signin', signinValidator, login);
 
@@ -44,7 +44,7 @@ app.post('/signup', signupValidator, createUser);
 
 app.use(auth);
 
-app.use('/cards', cardsRouter);
+app.use('/articles', articlesRouter);
 app.use('/users', userRouter);
 
 app.use(() => {

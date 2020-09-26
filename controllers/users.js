@@ -4,7 +4,6 @@ const PasswordValidator = require('password-validator');
 const User = require('../models/user');
 const UnauthorizedError = require('../errors/unauthorizedError');
 const BadRequestError = require('../errors/badRequestError');
-const ForbiddenError = require('../errors/forbiddenError');
 const ConflictError = require('../errors/conflictError');
 const NotFoundError = require('../errors/notFoundError');
 
