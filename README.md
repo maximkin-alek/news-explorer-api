@@ -18,7 +18,7 @@ Express, mongoose, celebrate, cookie-parser, bcryptjs, express-rate-limit, jsonw
 ## Инструкции по запуску:
 - Скачать или склонировать репозитори
 - Установить зависимости при помощи npm - `npm i`
-- Запустить в development режиме - `npm run start`
+- Запустить в development режиме - `npm run dev`
 
 ## Ссылка на github pages:
 https://github.com/maximkin-alek/news-explorer-api/tree/level-1
