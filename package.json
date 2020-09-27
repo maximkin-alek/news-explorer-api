@@ -8,15 +8,15 @@
     "dev": "nodemon app.js"
   },
   "repository": {
-    "type": "",
-    "url": ""
+    "type": "git",
+    "url": "git+https://github.com/maximkin-alek/news-explorer-api/tree/level-1.git"
   },
   "author": "Alexander Maximkin",
   "license": "ISC",
   "bugs": {
-    "url": ""
+    "url": "https://github.com/maximkin-alek/news-explorer-api/tree/level-1/issues"
   },
-  "homepage": "",
+  "homepage": "https://github.com/maximkin-alek/news-explorer-api/tree/level-1#readme",
   "dependencies": {
     "bcryptjs": "^2.4.3",
     "body-parser": "^1.19.0",
