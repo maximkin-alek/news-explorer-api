@@ -1,8 +1,6 @@
 const articlesRouter = require('express').Router();
-const { celebrate, Joi } = require('celebrate');
-const { urlValidator } = require('../validations/urlValidator');
-
-Joi.objectId = require('joi-objectid')(Joi);
+const { articleCreateValidator } = require('../validations/articleCreateValidator');
+const { articleDeleteValidator } = require('../validations/articleDeleteValidator');
 
 const {
   getArticles, createArticle, deleteArticle,
@@ -10,23 +8,8 @@ const {
 
 articlesRouter.get('/', getArticles);
 
-articlesRouter.post('/', celebrate({
-  body: Joi.object().keys({
-    keyword: Joi.string().required(),
-    title: Joi.string().required(),
-    text: Joi.string().required(),
-    date: Joi.date().required(),
-    link: Joi.string().required().custom(urlValidator),
-    source: Joi.string().required().custom(urlValidator),
-    image: Joi.string().required().custom(urlValidator),
+articlesRouter.post('/', articleCreateValidator, createArticle);
 
-  }),
-}), createArticle);
-
-articlesRouter.delete('/:id', celebrate({
-  params: Joi.object().keys({
-    id: Joi.objectId(),
-  }),
-}), deleteArticle);
+articlesRouter.delete('/:id', articleDeleteValidator, deleteArticle);
 
 module.exports = articlesRouter;

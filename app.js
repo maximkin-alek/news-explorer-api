@@ -14,6 +14,7 @@ const limiter = require('./validations/rateLimiter');
 const { signinValidator } = require('./validations/signinValidation');
 const { signupValidator } = require('./validations/signupValidation');
 const routes = require('./routes/index');
+const errorsHandler = require('./middlewares/errorsHandler');
 
 mongoose.connect(NODE_ENV === 'production' ? MONGO_ADRESS : 'mongodb://localhost:27017/news-explorer', {
   useNewUrlParser: true,
@@ -42,17 +43,7 @@ app.use(routes);
 app.use(errorLogger);
 
 app.use(errors());
-app.use((err, req, res, next) => {
-  const { statusCode = 500, message } = err;
-  res
-    .status(statusCode)
-    .send({
-      message: statusCode === 500
-        ? 'На сервере произошла ошибка'
-        : message,
-    });
-  next();
-});
+app.use(errorsHandler);
 
 app.listen(PORT, () => {
   console.log(`App listening on port ${PORT}`);
