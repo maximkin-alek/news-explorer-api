@@ -15,7 +15,7 @@ const { signinValidator } = require('./validations/signinValidation');
 const { signupValidator } = require('./validations/signupValidation');
 const routes = require('./routes/index');
 
-mongoose.connect(NODE_ENV === 'production' ? MONGO_ADRESS : 'localhost:27017/news-explorer', {
+mongoose.connect(NODE_ENV === 'production' ? MONGO_ADRESS : 'mongodb://localhost:27017/news-explorer', {
   useNewUrlParser: true,
   useCreateIndex: true,
   useFindAndModify: false,
