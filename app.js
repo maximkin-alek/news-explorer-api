@@ -6,7 +6,7 @@ const helmet = require('helmet');
 const { errors } = require('celebrate');
 const cookieParser = require('cookie-parser');
 
-const { MONGO_ADRESS } = process.env;
+const { MONGO_ADRESS, NODE_ENV } = process.env;
 const { login, createUser } = require('./controllers/users');
 const auth = require('./middlewares/auth');
 const { requestLogger, errorLogger } = require('./middlewares/logger');
@@ -15,7 +15,7 @@ const { signinValidator } = require('./validations/signinValidation');
 const { signupValidator } = require('./validations/signupValidation');
 const routes = require('./routes/index');
 
-mongoose.connect(MONGO_ADRESS, {
+mongoose.connect(NODE_ENV === 'production' ? MONGO_ADRESS : 'localhost:27017/news-explorer', {
   useNewUrlParser: true,
   useCreateIndex: true,
   useFindAndModify: false,

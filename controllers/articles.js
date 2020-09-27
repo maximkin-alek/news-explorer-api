@@ -45,7 +45,7 @@ module.exports.deleteArticle = (req, res, next) => {
     })
     .catch((err) => {
       if (err.name === 'DocumentNotFoundError') {
-        throw new NotFoundError('Такой карточки не существует');
+        throw new NotFoundError('Такой статьи не существует');
       } else if (err.name === 'CastError') {
         throw new BadRequestError('Некорректный Id');
       } else { next(err); }
