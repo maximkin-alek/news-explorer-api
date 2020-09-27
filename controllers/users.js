@@ -18,9 +18,12 @@ passValid
   .spaces();
 
 module.exports.getUser = (req, res, next) => {
-  User.findById(req.params.id)
+  User.findById(req.user._id)
     .orFail(() => { })
-    .then((user) => res.send({ data: user }))
+    .then((user) => res.send({
+      name: user.name,
+      email: user.email,
+    }))
     .catch((err) => {
       if (err.name === 'DocumentNotFoundError') {
         throw new NotFoundError('Такого пользователя не существует');
@@ -30,6 +33,7 @@ module.exports.getUser = (req, res, next) => {
     })
     .catch(next);
 };
+
 module.exports.createUser = (req, res, next) => {
   const {
     name, email, password,
@@ -70,7 +74,7 @@ module.exports.login = (req, res, next) => {
         httpOnly: true,
         sameSite: true,
       })
-        .send({ data: 'Авторизация прошла успешно' })
+        .send({ message: 'Авторизация прошла успешно' })
         .end();
     })
     .catch(() => {

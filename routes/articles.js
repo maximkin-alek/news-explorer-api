@@ -29,4 +29,4 @@ articlesRouter.delete('/:id', celebrate({
   }),
 }), deleteArticle);
 
-module.exports = { articlesRouter };
+module.exports = articlesRouter;

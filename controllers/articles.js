@@ -19,7 +19,7 @@ module.exports.createArticle = (req, res, next) => {
   Article.create({
     link, owner, keyword, title, text, date, source, image,
   })
-    .then((card) => res.send({ data: card }))
+    .then((card) => res.status(201).send({ data: card }))
     .catch((err) => {
       if (err.name === 'ValidationError') {
         next(new BadRequestError(`Данные не валидны: ${err.message}`));

@@ -5,17 +5,17 @@ const mongoose = require('mongoose');
 const helmet = require('helmet');
 const { errors } = require('celebrate');
 const cookieParser = require('cookie-parser');
-const { articlesRouter } = require('./routes/articles');
-const userRouter = require('./routes/users');
+
+const { MONGO_ADRESS } = process.env;
 const { login, createUser } = require('./controllers/users');
 const auth = require('./middlewares/auth');
-const NotFoundError = require('./errors/notFoundError');
 const { requestLogger, errorLogger } = require('./middlewares/logger');
 const limiter = require('./validations/rateLimiter');
 const { signinValidator } = require('./validations/signinValidation');
 const { signupValidator } = require('./validations/signupValidation');
+const routes = require('./routes/index');
 
-mongoose.connect('mongodb://localhost:27017/news-explorer', {
+mongoose.connect(MONGO_ADRESS, {
   useNewUrlParser: true,
   useCreateIndex: true,
   useFindAndModify: false,
@@ -32,24 +32,12 @@ app.use(bodyParser.urlencoded({ extended: false }));
 
 app.use(requestLogger);
 
-// app.get('/crash-test', () => {
-//   setTimeout(() => {
-//     throw new Error('Сервер сейчас упадёт');
-//   }, 0);
-// });
-
 app.post('/signin', signinValidator, login);
 
 app.post('/signup', signupValidator, createUser);
 
 app.use(auth);
-
-app.use('/articles', articlesRouter);
-app.use('/users', userRouter);
-
-app.use(() => {
-  throw new NotFoundError('Запрашиваемый ресурс не найден');
-});
+app.use(routes);
 
 app.use(errorLogger);
 
