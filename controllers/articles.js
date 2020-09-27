@@ -5,8 +5,8 @@ const NotFoundError = require('../errors/notFoundError');
 
 module.exports.getArticles = (req, res, next) => {
   Article.find({})
-    .then((cards) => {
-      res.send({ data: cards });
+    .then((articles) => {
+      res.send({ data: articles });
     })
     .catch(next);
 };
@@ -19,7 +19,15 @@ module.exports.createArticle = (req, res, next) => {
   Article.create({
     link, owner, keyword, title, text, date, source, image,
   })
-    .then((card) => res.status(201).send({ data: card }))
+    .then((article) => res.status(201).send({
+      link: article.link,
+      keyword: article.keyword,
+      title: article.title,
+      text: article.text,
+      date: article.date,
+      source: article.source,
+      image: article.image,
+    }))
     .catch((err) => {
       if (err.name === 'ValidationError') {
         next(new BadRequestError(`Данные не валидны: ${err.message}`));
@@ -34,11 +42,11 @@ module.exports.deleteArticle = (req, res, next) => {
   Article.findById(req.params.id)
     .orFail(() => { })
     .populate('owner')
-    .then((card) => {
-      if (card.owner.id === req.user._id) {
-        card.remove()
+    .then((article) => {
+      if (article.owner.id === req.user._id) {
+        article.remove()
           .then(() => {
-            res.send({ data: card });
+            res.send({ data: article });
           })
           .catch(next);
       } else { throw new ForbiddenError('Недостаточно прав для этого действия'); }
