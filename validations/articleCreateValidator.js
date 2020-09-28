@@ -8,7 +8,7 @@ const articleCreateValidator = celebrate({
     text: Joi.string().required(),
     date: Joi.date().required(),
     link: Joi.string().required().custom(urlValidator),
-    source: Joi.string().required().custom(urlValidator),
+    source: Joi.string().required(),
     image: Joi.string().required().custom(urlValidator),
 
   }),
