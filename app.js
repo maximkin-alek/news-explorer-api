@@ -39,6 +39,8 @@ const corsOptions = {
     'Content-Type',
     'origin',
     'x-access-token',
+    'authorization',
+    'credentials',
   ],
   credentials: true,
 };
