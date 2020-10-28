@@ -28,9 +28,8 @@ const app = express();
 
 const corsOptions = {
   origin: [
-    'https://backend-mesto.xyz',
     'http://localhost:8080',
-    'https://vitalybibik.github.io',
+    'https://maximkin-alek.github.io/news-explorer-frontend/',
   ],
   methods: ['GET', 'HEAD', 'PUT', 'PATCH', 'POST', 'DELETE'],
   preflightContinue: false,
@@ -46,7 +45,7 @@ const corsOptions = {
 app.use('*', cors(corsOptions));
 
 app.use(helmet());
-// app.use(limiter);
+app.use(limiter);
 app.use(cookieParser());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
