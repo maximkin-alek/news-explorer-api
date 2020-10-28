@@ -27,6 +27,7 @@ module.exports.createArticle = (req, res, next) => {
       date: article.date,
       source: article.source,
       image: article.image,
+      id: article.id,
     }))
     .catch((err) => {
       if (err.name === 'ValidationError') {

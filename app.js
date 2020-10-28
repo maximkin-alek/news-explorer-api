@@ -5,6 +5,7 @@ const mongoose = require('mongoose');
 const helmet = require('helmet');
 const { errors } = require('celebrate');
 const cookieParser = require('cookie-parser');
+const cors = require('cors');
 
 const { MONGO_ADRESS, NODE_ENV } = process.env;
 const { login, createUser } = require('./controllers/users');
@@ -25,8 +26,27 @@ mongoose.connect(NODE_ENV === 'production' ? MONGO_ADRESS : 'mongodb://localhost
 const { PORT = 3000 } = process.env;
 const app = express();
 
+const corsOptions = {
+  origin: [
+    'https://backend-mesto.xyz',
+    'http://localhost:8080',
+    'https://vitalybibik.github.io',
+  ],
+  methods: ['GET', 'HEAD', 'PUT', 'PATCH', 'POST', 'DELETE'],
+  preflightContinue: false,
+  optionsSuccessStatus: 204,
+  allowedHeaders: [
+    'Content-Type',
+    'origin',
+    'x-access-token',
+  ],
+  credentials: true,
+};
+
+app.use('*', cors(corsOptions));
+
 app.use(helmet());
-app.use(limiter);
+// app.use(limiter);
 app.use(cookieParser());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
