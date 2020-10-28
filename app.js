@@ -30,7 +30,7 @@ const corsOptions = {
   origin: [
     'https://api.alex-newsexp.tk',
     'http://localhost:8080',
-    'https://maximkin-alek.github.io/',
+    'https://maximkin-alek.github.io/news-explorer-frontend/',
   ],
   methods: ['GET', 'HEAD', 'PUT', 'PATCH', 'POST', 'DELETE'],
   preflightContinue: false,
