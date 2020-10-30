@@ -18,7 +18,6 @@ passValid
   .spaces();
 
 module.exports.getUser = (req, res, next) => {
-  console.log(req);
   User.findById(req.user._id)
     .orFail(() => { })
     .then((user) => res.send({
