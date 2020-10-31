@@ -1,6 +1,7 @@
 const userRouter = require('express').Router();
-const { getUser } = require('../controllers/users');
+const { getUser, logout } = require('../controllers/users');
 
 userRouter.get('/me', getUser);
+userRouter.get('/logout', logout);
 
 module.exports = userRouter;

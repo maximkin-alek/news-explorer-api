@@ -82,3 +82,27 @@ module.exports.login = (req, res, next) => {
     })
     .catch(next);
 };
+
+module.exports.logout = (req, res, next) => {
+  User.findById(req.user._id)
+    .orFail(() => { })
+    .then((user) => {
+      const token = jwt.sign({ _id: user._id }, NODE_ENV === 'production' ? JWT_SECRET : '654gfqwg46q5q69qw4frf654', { expiresIn: '7d' });
+      res.cookie('jwt', token, {
+        maxAge: 0,
+        httpOnly: true,
+        sameSite: false,
+      });
+      res.send({
+        massage: 'Вы вышли из аккаунта',
+      });
+    })
+    .catch((err) => {
+      if (err.name === 'DocumentNotFoundError') {
+        throw new NotFoundError('Такого пользователя не существует');
+      } else if (err.name === 'CastError') {
+        throw new BadRequestError('Некорректный Id');
+      } else { next(err); }
+    })
+    .catch(next);
+};
