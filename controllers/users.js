@@ -91,7 +91,8 @@ module.exports.logout = (req, res, next) => {
       res.cookie('jwt', token, {
         maxAge: 0,
         httpOnly: true,
-        sameSite: false,
+        secure: true,
+        sameSite: 'none',
       });
       res.send({
         massage: 'Вы вышли из аккаунта',
